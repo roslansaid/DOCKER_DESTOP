@@ -33,6 +33,14 @@ data:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/apps
+      - name: Cluster
+        orgId: 1
+        folder: Cluster
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/cluster
   argocd-overview.json: |
     {
       "id": null,
@@ -117,6 +125,9 @@ spec:
             - name: grafana-apps-dashboard
               mountPath: /var/lib/grafana/dashboards/apps
               readOnly: true
+            - name: grafana-cluster-dashboard
+              mountPath: /var/lib/grafana/dashboards/cluster
+              readOnly: true
       volumes:
         - name: grafana-data
           persistentVolumeClaim:
@@ -127,3 +138,6 @@ spec:
         - name: grafana-apps-dashboard
           configMap:
             name: grafana-apps-dashboard
+        - name: grafana-cluster-dashboard
+          configMap:
+            name: grafana-cluster-dashboard
