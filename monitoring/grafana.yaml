@@ -115,8 +115,7 @@ spec:
               subPath: argocd-overview.json
               readOnly: true
             - name: grafana-apps-dashboard
-              mountPath: /var/lib/grafana/dashboards/apps/wordpress-ojs.json
-              subPath: wordpress-ojs.json
+              mountPath: /var/lib/grafana/dashboards/apps
               readOnly: true
       volumes:
         - name: grafana-data
