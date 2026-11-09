@@ -10,16 +10,13 @@ metadata:
   name: prometheus-cluster-reader
 rules:
   - apiGroups: [""]
-    resources: ["nodes", "nodes/metrics", "services", "endpoints", "pods"]
+    resources: ["nodes", "pods", "namespaces"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["apps"]
     resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["batch"]
     resources: ["jobs", "cronjobs"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["autoscaling"]
-    resources: ["horizontalpodautoscalers"]
     verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -56,6 +53,7 @@ spec:
           image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0
           args:
             - --port=8080
+            - --resources=nodes,pods,namespaces,deployments,replicasets,statefulsets,daemonsets,jobs,cronjobs
           ports:
             - name: metrics
               containerPort: 8080
