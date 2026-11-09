@@ -159,14 +159,12 @@ spec:
             - name: public
               mountPath: /var/www/public
           readinessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
             initialDelaySeconds: 30
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20
