@@ -25,6 +25,14 @@ data:
         editable: true
         options:
           path: /var/lib/grafana/dashboards/argocd
+      - name: Applications
+        orgId: 1
+        folder: Applications
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/apps
   argocd-overview.json: |
     {
       "id": null,
@@ -106,6 +114,10 @@ spec:
               mountPath: /var/lib/grafana/dashboards/argocd/argocd-overview.json
               subPath: argocd-overview.json
               readOnly: true
+            - name: grafana-apps-dashboard
+              mountPath: /var/lib/grafana/dashboards/apps/wordpress-ojs.json
+              subPath: wordpress-ojs.json
+              readOnly: true
       volumes:
         - name: grafana-data
           persistentVolumeClaim:
@@ -113,3 +125,6 @@ spec:
         - name: grafana-provisioning
           configMap:
             name: grafana-argocd-provisioning
+        - name: grafana-apps-dashboard
+          configMap:
+            name: grafana-apps-dashboard
